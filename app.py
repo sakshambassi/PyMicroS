@@ -25,13 +25,16 @@ def analyze_text():
         return jsonify({'error': 'No text specified'}), 400
 
     if service == 'bigram':
-        result = bigram_service(text)
+        result, status_code = bigram_service(text)
     elif service == 'word-count':
-        result = word_count_service(text)
+        result, status_code = word_count_service(text)
     else:
         return jsonify({'error': 'Invalid service specified'}), 400
 
-    return jsonify({'result': result})
+    if status_code != 200:
+        return jsonify({'error': result}), status_code
+    else:
+        return jsonify({'result': result})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)

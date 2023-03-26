@@ -13,13 +13,13 @@ def word_count_service(text):
         OrderedDict: dict of key=word and val=count of the word
     """
     if not text:
-        return jsonify(error='Missing input text'), 400
+        return 'Missing input text', 400
+    
+    if type(text) != str:
+        return 'Text input should be string', 400
 
     words = remove_non_alphanumeric(text).lower().split()
     logging.info(f'Fetched words from input text={words}')
 
-    if len(words) < 1:
-        return jsonify(error='Input text must contain at least one word'), 400
-
     count = Counter(words)
-    return OrderedDict(count.most_common())
+    return OrderedDict(count.most_common()), 200

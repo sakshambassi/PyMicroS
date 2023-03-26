@@ -45,7 +45,6 @@ def words_list_2_bigrams(words_list: list) -> list:
         if words != []:
             bigrams.extend(list(zip(words, words[1:])))
     
-    
     # sorting to remove duplicates without order
     bigrams = [tuple(sorted(bigram)) for bigram in bigrams]
     return bigrams
