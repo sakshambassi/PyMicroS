@@ -21,17 +21,20 @@ def bigram_service(text):
     if not text:
         return 'Missing input text', 400
 
+    if type(text) != str:
+        return 'Text input should be string', 400
+
     try:
         words_list = text_2_words_list(text)
         logging.info(f'Successfully splitted words of all sentences.')
-    except:
-        return 'Bad request', 400
+    except Exception as e:
+        return f'Bad request: {e}', 400
 
     try:
         bigrams = words_list_2_bigrams(words_list)
         logging.info(f'Found bigrams = {bigrams}')
-    except:
-        return 'Bad request', 400
+    except Exception as e:
+        return f'Bad request: {e}', 400
     
     counter = Counter(bigrams)
     logging.info(f'Counter of bigrams = {counter}')

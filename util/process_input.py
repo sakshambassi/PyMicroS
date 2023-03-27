@@ -20,16 +20,18 @@ def text_2_words_list(text: str) -> list:
     Returns:
         list: list of list of words
     """
+    words_list = []
     # splitting into sentences
     sentences = text.split('.')
-    
+
     # spliting each sentence into words
-    for i, sentence in enumerate(sentences):
-        if sentence == []:
-            del sentence[i]
-        else:
-            sentences[i] = remove_non_alphanumeric(sentence).lower().split()
-    return sentences
+    for sentence in sentences:
+        if sentence.strip() != '':
+            words_list.append(remove_non_alphanumeric(sentence).lower().split())
+
+    if not words_list:
+        raise Exception("Empty words list")
+    return words_list
 
 def words_list_2_bigrams(words_list: list) -> list:
     """ converts list of words to one list of bigrams
@@ -44,7 +46,10 @@ def words_list_2_bigrams(words_list: list) -> list:
     for words in words_list:
         if words != []:
             bigrams.extend(list(zip(words, words[1:])))
-    
+
     # sorting to remove duplicates without order
     bigrams = [tuple(sorted(bigram)) for bigram in bigrams]
+
+    if not bigrams:
+        raise Exception("Bigrams list")
     return bigrams

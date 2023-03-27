@@ -14,11 +14,14 @@ def word_count_service(text):
     """
     if not text:
         return 'Missing input text', 400
-    
+
     if type(text) != str:
         return 'Text input should be string', 400
 
     words = remove_non_alphanumeric(text).lower().split()
+    if words == []:
+        return 'Empty words list', 400
+
     logging.info(f'Fetched words from input text={words}')
 
     count = Counter(words)

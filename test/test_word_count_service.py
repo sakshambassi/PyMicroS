@@ -25,8 +25,18 @@ class TestWordCountService(unittest.TestCase):
                 "and": 1
             }
         )
-        
+
     def test_word_count_service_empty_text(self):
         result, status_code = word_count_service('')
         self.assertEqual(status_code, 400)
         self.assertEqual(result, 'Missing input text')
+
+    def test_word_count_service_wrong_input(self):
+        result, status_code = word_count_service(1)
+        self.assertEqual(status_code, 400)
+        self.assertEqual(result, 'Text input should be string')
+
+    def test_bigram_service_empty_string_list(self):
+        result, status_code = word_count_service(' . . .')
+        self.assertEqual(status_code, 400)
+        self.assertEqual(result, 'Empty words list')

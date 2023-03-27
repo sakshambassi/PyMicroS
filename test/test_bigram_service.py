@@ -30,3 +30,12 @@ class TestBigramAnalysisService(unittest.TestCase):
         result, status_code = bigram_service('')
         self.assertEqual(status_code, 400)
         self.assertEqual(result, 'Missing input text')
+
+    def test_bigram_service_wrong_input(self):
+        result, status_code = bigram_service(1)
+        self.assertEqual(status_code, 400)
+        self.assertEqual(result, 'Text input should be string')
+
+    def test_bigram_service_empty_string_list(self):
+        result, status_code = bigram_service(' . . .')
+        self.assertEqual(status_code, 400)
